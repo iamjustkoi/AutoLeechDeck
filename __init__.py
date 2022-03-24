@@ -67,31 +67,6 @@ def onLeech(card: Card):
         card.odue = 0
 
 
-# #     TODO: Read/Write info from addon config to the new deck-options menu when documentation gets updated
-# # def onNewDeckOptionsLoad(dialog: qt.aqt.deckoptions.DeckOptionsDialog):
-# def onNewDeckOptionsLoad(dialog):
-#     from aqt.utils import tooltip
-#     tooltip(f'Deck config will show: {dialog.windowTitle()}', 6000)
-#     import json
-#     from pathlib import Path
-#
-#     options_html = open(Path(__file__).with_name("options.html")).read()
-#     # Read and inject html code into options.js file.
-#     options_js = open(Path(__file__).with_name("options.js")) \
-#         .read() \
-#         .replace("HTML_PLACEHOLDER", json.dumps(options_html))
-#     # # Evaluate javascript string
-#     dialog.web.eval(options_js)
-#     # dialog.web.evalWithCallback(options_js, processInputResult)
-#     mw.col.conf.get()
-
-
-# # @app.route("/processInputResult/<string:inputDeck>", methods={"POST"})
-# def processInputResult(input_deck):
-#     input_deck = json.load(input_deck)
-#     print(f"In: {input_deck}")
-
-
 def updateDeckConfForm(conf: deckconf.DeckConf):
     """
     Hook-Function for when the legacy deck config is opened in Anki.
@@ -163,7 +138,3 @@ addon_module = __name__.split(".")[0]
 gui_hooks.deck_conf_will_show.append(updateDeckConfForm)
 # Saving config hook
 gui_hooks.deck_conf_will_save_config.append(saveDataToAddonConf)
-# Webview/window updates hook
-# gui_hooks.deck_options_did_load.append(onNewDeckOptionsLoad)
-
-# mw.addonManager.setConfigAction(__name__, onSave)
