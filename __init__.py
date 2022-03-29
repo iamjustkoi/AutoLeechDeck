@@ -5,13 +5,16 @@ Full license text available in "LICENSE" file, located in the add-on's root dire
 Based on the "Anki Add-On Guide" <https://addon-docs.ankiweb.net/hooks-and-filters.html#legacy-hook-handling>.
 as well as the add-on "ANTI-SUCK" <https://ankiweb.net/shared/info/1131698154> by Joseph Y.
 """
-
+import anki.hooks as hooks
 from anki.cards import Card
-from anki.hooks import addHook
+# from anki.hooks import addHook
 from aqt import mw, gui_hooks, deckconf
 from PyQt5 import QtWidgets
+default_key = "##Default"
 
 
+# TODO: Handle on-deck-rename
+#  -Add note that its handled in the readme file
 # TODO: Add feedback, support, and github links to config pages
 
 
@@ -20,20 +23,20 @@ def getTransferDeckId(deck_name: str):
         Getter method for the leech-deck id based on what value the deck-key holds in the addon's config file.
 
         :return: The transfer deck id for the input deck name, if found. <br>
-         Otherwise: -1 for no key found, 0 for empty value found, or a 1 for "##Default" assignment found.
+         Otherwise: -1 for no key found, 0 for empty value found, or a 1 for default-key assignment found.
     """
     config = mw.addonManager.getConfig(__name__)
     config_deck_name = config.get(deck_name)
-    default_deck_name = config.get('##Default')
+    default_deck_name = config.get(default_key)
 
     # Get deck id from config:
     transfer_did = -1
     # If config deck-value exists:
     if config_deck_name or config_deck_name == "":
         transfer_did = 0
-        if config_deck_name != "" and config_deck_name != "##Default":
+        if config_deck_name != "" and config_deck_name != default_key:
             transfer_did = mw.col.decks.id(config_deck_name)
-        elif default_deck_name and config_deck_name == "##Default":
+        elif default_deck_name and config_deck_name == default_key:
             transfer_did = 1
 
     print(f"LEECH MOVER: t-did: {transfer_did}"
@@ -47,14 +50,14 @@ def onLeech(card: Card):
     """
         Hook function that handles new leech-movement functions when the specified card is "leeched."
 
-        :param card: Reference to card being added to the leech deck.
+        :param card: Reference to card being leeched.
     """
     config = mw.addonManager.getConfig(__name__)
     key = mw.col.decks.current().get('name')
 
     transfer_did = getTransferDeckId(key)
-    if transfer_did == (-1 or 1) and config["##Default"]:
-        card.did = mw.col.decks.id(config["##Default"])
+    if transfer_did == (-1 or 1) and config[default_key]:
+        card.did = mw.col.decks.id(config[default_key])
     elif transfer_did != 0:
         card.did = transfer_did
 
@@ -94,7 +97,7 @@ def updateDeckConfForm(conf: deckconf.DeckConf):
         leech_deck_line.setText(conf.deck["name"])
     # ##Defualt: "##Default"
     elif leech_did == 1:
-        leech_deck_line.setText("##Default")
+        leech_deck_line.setText(default_key)
     # Deck: "Deck Name"
     else:
         leech_deck_line.setText(mw.col.decks.name(leech_did))
@@ -132,9 +135,9 @@ def saveDataToAddonConf(conf: deckconf.DeckConf, deck, filtered_conf):
         mw.addonManager.writeConfig(__name__, addon_config)
 
 
-addHook("leech", onLeech)
-addon_module = __name__.split(".")[0]
+hooks.card_did_leech.append(onLeech)
 # Show config hook
 gui_hooks.deck_conf_will_show.append(updateDeckConfForm)
 # Saving config hook
 gui_hooks.deck_conf_will_save_config.append(saveDataToAddonConf)
+

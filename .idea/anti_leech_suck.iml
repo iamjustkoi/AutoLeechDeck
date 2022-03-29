@@ -7,7 +7,7 @@
     <content url="file://$USER_HOME$/Python/anki">
       <excludeFolder url="file://$USER_HOME$/Python/anki" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (anti_leech_suck)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (auto_leech_deck)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

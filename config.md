@@ -1,4 +1,4 @@
-# Auto Leech-Deck Mover
+# Auto Leech Deck
 
 ### Placing a deck's leeches into a leech deck:
 
