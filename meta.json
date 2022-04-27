@@ -1,1 +1,1 @@
-{"name": "Auto Leech Deck", "config": {"##Default": "Leech", "\u65e5\u672c\u8a9e\u306e\u5358\u8a9e": "\u65e5\u672c\u8a9e\u306e\u5358\u8a9e::Leech"}, "disabled": false, "mod": 0, "conflicts": [], "max_point_version": 0, "min_point_version": 0, "branch_index": 0, "update_enabled": true}
+{"name": "Auto Leech Deck", "config": {"0": "-1", "1579838346803": "1637622419586"}, "disabled": false, "mod": 0, "conflicts": [], "max_point_version": 0, "min_point_version": 0, "branch_index": 0, "update_enabled": true}
