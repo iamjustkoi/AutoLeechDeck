@@ -1,31 +1,33 @@
 # Auto Leech Deck
 
-### Placing a Deck's Leeches Into a Leech Deck:
-##### Assign with a "Deck: Sub-Deck" pattern using the JSON format, with commas splitting all, new key-value pairs.
+## Assigning a Leech Deck
+#### Use the pattern {"Deck": "Sub-Deck"} (JSON Format):
 &nbsp;&nbsp;&nbsp;&nbsp;``{`` <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"Deck": "Leech Deck",`` <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"Another Deck": "Another Leech Deck",`` <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"Etc": "Leech Deck (can be used more than once)"`` <br>
 &nbsp;&nbsp;&nbsp;&nbsp;``}``<br>
 
-### Placing a Deck's Leeches Into a Leech Sub-Deck:
-##### Insert a double-colon between the parent deck and its sub-deck in the assignment.
+## Using Sub-Decks
+#### Insert two colons between the parent deck and its sub-deck when setting its value:
 &nbsp;&nbsp;&nbsp;&nbsp;``{``<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"Main Deck": "Main Deck::Sub-Deck",``<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;``"Another Deck": "Main Deck::Sub-Deck"``<br>
 &nbsp;&nbsp;&nbsp;&nbsp;``}``<br>
 
-### Setting a Default Deck for Leeches To Be Put In:
-##### Assign the deck to the value "##Default".
-##### This is the deck that will be used when no assignment is found for a deck.
+## Setting a Default Leech Deck
+#### Set the deck to the "##Default" key:
 &nbsp;&nbsp;&nbsp;&nbsp;``{ "##Default": "Default Leech Deck" }``<br>
+##### This is where leeched cards get put if there's no leech deck assigned to the main deck.
 
-### Disabling Leech-Deck Movement (including movement to the default deck):
-##### Assign the deck back to itself or set it to an empty value.
+## Disabling Auto-Movement for a Deck
+#### Set the leech deck to the main deck or you can make it blank:
 &nbsp;&nbsp;&nbsp;&nbsp;``{ "Static Deck": "Static Deck" }``<br>
 <!-- ### &nbsp;&nbsp;&nbsp;&nbsp;Alternative method: -->
 &nbsp;&nbsp;&nbsp;&nbsp;``{ "Static Deck": "" }``<br>
 
-### Disabling Default Leech-Movement:
-##### Assign the default deck to an empty value.
+## Disabling Auto-Movement to the Default Leech Deck
+#### Set the "##Default" key to a blank value:
 &nbsp;&nbsp;&nbsp;&nbsp;``{ "##Default": "" }``<br>
+##### This cancels movement to the default deck for any decks that don't have a leech deck already set.
+

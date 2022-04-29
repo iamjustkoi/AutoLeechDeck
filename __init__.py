@@ -10,31 +10,38 @@ import json
 import anki.hooks as hooks
 import aqt.addons
 from anki.cards import Card
-# from anki.hooks import addHook
 from aqt import mw, gui_hooks, deckconf
 from PyQt5 import QtWidgets
 default_key_name = "##Default"
-default_leech_deck_name = "Leech"
+default_deck_value_name = "Leech"
 
 {
-    # TODO: Handle "##Default::Sub-deck" notation
-    # TODO: Fix "Restore Defaults" button for config saving
     # TODO: Add feedback, support, and github links to config pages
 }
 
 
-def findDefaultLeechDeckId():
+def findDefaultLeechDeckId() -> int or None:
+    """
+Attempts to return the deck id for the default key value assigned in the config.
+    :return: The Deck ID for the deck assigned to the default key, else None.
+    """
     config = mw.addonManager.getConfig(__name__)
     deck_id = config["0"]
-    # Does the default deck key have a value and exist?
-    # Can't ever be none due to the default value in config.json, which is added back by Anki
+
+    # Anki always adds default config.json values if they're not found so None is only here for rare cases
     if deck_id != ("-1" or None):
-        return int(mw.col.decks.id(default_leech_deck_name)) if deck_id == "0" else int(deck_id)
+        return int(mw.col.decks.id(default_deck_value_name)) if deck_id == "0" else int(deck_id)
     else:
         return None
 
 
-def findTransferDeckIdForDeck(deck_id: int):
+def findLeechDeckIdForDeck(deck_id: int) -> int:
+    """
+Attempts to return the deck ID for the leech deck of the input deck, assuming it's been assigned in the config.
+    :param deck_id: ID for the deck to reference when find a leech deck.
+    :return: The integer ID for the found leech deck, else -2 for no assignment, -1 for an empty value, or
+    0 for a default parameter.
+    """
     result_did = -2  # No value found
 
     config = mw.addonManager.getConfig(__name__)
@@ -62,15 +69,18 @@ def findTransferDeckIdForDeck(deck_id: int):
 
 def onLeech(card: Card):
     """
-Hook function that handles new leech-movement functions when the specified card is "leeched."
+Hook function that handles a card leech event.
 
-    :param card: Reference to card being leeched.
+Uses the addon config to determine where the leeched card will go and whether it should move at all. Won't move cards
+that are leeched during a cram/study session.
+
+    :param card: Object for the card that's being leeched.
     """
     # config = mw.addonManager.getConfig(__name__)
     current_id = mw.col.decks.get_current_id()
     # config_default_key_id = config.get(default_id)
 
-    transfer_did = findTransferDeckIdForDeck(current_id)
+    transfer_did = findLeechDeckIdForDeck(current_id)
     default_did = findDefaultLeechDeckId()
     # Does default deck key exist and no value/default value was found?
     if default_did and transfer_did == (-2 or 0):
@@ -94,9 +104,8 @@ def loadDeckConfForm(conf: deckconf.DeckConf):
     """
 Hook-Function for when the legacy deck config is opened in Anki.
 
-Creates a form input label and edits its text to reflect current addon config settings.
-
-    :param conf: Deck config object of the deck being configured.
+Creates a form input label and sets the text based on the addon's config settings.
+    :param conf: Config object for the current deck.
     """
     config_form = conf.form
 
@@ -108,7 +117,7 @@ Creates a form input label and edits its text to reflect current addon config se
     leech_deck_line = QtWidgets.QLineEdit(config_form.tab_2)
     leech_deck_line.setObjectName("leechDeck")
 
-    leech_did = findTransferDeckIdForDeck(conf.deck["id"])
+    leech_did = findLeechDeckIdForDeck(conf.deck["id"])
 
     # No key: ""
     if leech_did == -2:
@@ -121,7 +130,13 @@ Creates a form input label and edits its text to reflect current addon config se
         leech_deck_line.setText(default_key_name)  # Set text to default key
     # Input key: "<Input Deck>"
     else:
-        leech_deck_line.setText(mw.col.decks.name(leech_did))  # Set text to name of input deck
+        deck_name = mw.col.decks.name(leech_did)
+        # Deck not found: ""
+        if deck_name == mw.col.tr.decks_no_deck():
+            leech_deck_line.setText("")
+        # Deck found: Set text to name of input deck
+        else:
+            leech_deck_line.setText(mw.col.decks.name(leech_did))
 
     print(f"ID found: {leech_did} \n"
           f"Out: {leech_deck_line.text()}")
@@ -135,9 +150,9 @@ Hook-Function for when the legacy deck config is saving.
 
 Saves the input-data found in the created form-label object to addon config.
 
-    :param conf: Deck config object of the deck being configured.
-    :param deck: Deck object being configured.
-    :param filtered_conf: Filtered deck config of the deck being configured.
+    :param conf: Config object for the current deck.
+    :param deck: Current deck's deck object.
+    :param filtered_conf: Filtered config object for the current deck.
     """
     leech_deck_line = conf.form.tab_2.findChild(QtWidgets.QLineEdit, "leechDeck")
     if not leech_deck_line:
@@ -173,9 +188,11 @@ Saves the input-data found in the created form-label object to addon config.
 selected_addon = ""
 
 
-def addonSelected(dialog: aqt.addons.AddonsDialog, meta: aqt.addons.AddonMeta) -> object:
+def addonSelected(dialog: aqt.addons.AddonsDialog, meta: aqt.addons.AddonMeta) -> None:
     """
-Hook-function for when an addon is selected in the Addons dialog menu. Sets selected_addon to currently selected addon.
+Hook-function for when an addon is selected in the Addons dialog menu.
+
+Sets the variable "selected_addon" to the addon selected.
     :param dialog: Addons dialog menu object.
     :param meta: Meta object for selected addon.
     """
@@ -185,8 +202,15 @@ Hook-function for when an addon is selected in the Addons dialog menu. Sets sele
         print("Selected!")
 
 
-# Anki always adds default config.json values if they're missing from meta.json
 def loadingAddonConfJSON(json_str: str):
+    """
+Hook-function for loading addon configuration files.
+
+If the selected addon matches this addon, attempts to change the JSON string from deck ID's to deck names.
+    :param json_str: JSON string passed via the hook.
+    :return: If the current addon selected is this addon, a modified JSON string, else the unmodified, input JSON
+    string.
+    """
     if selected_addon != __name__:
         return json_str
 
@@ -194,6 +218,8 @@ def loadingAddonConfJSON(json_str: str):
 
     data = dict(json.loads(json_str))
     out_data = {}
+
+    # Doesn't handle a null value since config save function and Anki already handle it
 
     for key_id_str in data:
         # Default Leech Deck id:
@@ -211,7 +237,7 @@ def loadingAddonConfJSON(json_str: str):
             if val_id == 0:
                 val_name = default_key_name
                 if key_id_str == "0":
-                    val_name = default_leech_deck_name
+                    val_name = default_deck_value_name
 
             # deck-key leech deck is blank or doesn't exist?
             elif val_id == -1 or mw.col.decks.name(val_id) == mw.col.tr.decks_no_deck():
@@ -221,6 +247,8 @@ def loadingAddonConfJSON(json_str: str):
             else:
                 val_name = mw.col.decks.name(val_id)
 
+            # Try adding key/value to output:
+
             if val_name is None:
                 aqt.utils.tooltip(f"Unable to load the value ID for key: \"{key_name}\": \"{data[key_id_str]}\"")
                 print(f"Unable to load the value ID for key: \"{key_name}\": \"{data[key_id_str]}\"")
@@ -228,9 +256,9 @@ def loadingAddonConfJSON(json_str: str):
                 aqt.utils.tooltip(f"Unable to load the key ID for key: \"{key_id_str}\"")
                 print(f"Unable to load the key ID for key: \"{key_id_str}\"")
             else:
-                # Add key and value to output data
                 out_data[key_name] = val_name
 
+    # Encoding for multiple languages/typesets
     loading_json = json.dumps(out_data, indent=4, sort_keys=True, ensure_ascii=False).encode("utf8")
     print(f"Load Formatted: \n {loading_json.decode()}")
 
@@ -238,6 +266,14 @@ def loadingAddonConfJSON(json_str: str):
 
 
 def savingAddonConfJSON(json_str: str):
+    """
+Hook-function for saving addon configuration files.
+
+If the selected addon matches this addon, attempts to change the JSON string from deck names to deck ID's.
+    :param json_str: JSON string passed via the hook.
+    :return: If the current addon selected is this addon, a modified JSON string, else the unmodified, input JSON
+    string.
+    """
     if selected_addon != __name__:
         return json_str
 
@@ -246,8 +282,10 @@ def savingAddonConfJSON(json_str: str):
     data = dict(json.loads(json_str))
     out_data = {}
 
-    # No checks run since Anki automatically assigns decks to id's even if they don't already exist
+    # Doesn't check if a deck exists already since Anki automatically creates an ID if none are found,
+    # using the decks.id() function.
     for key_name in data:
+
         # "##Default" set saved id to "0"
         if key_name == default_key_name:
             key_id_str = "0"
@@ -265,27 +303,26 @@ def savingAddonConfJSON(json_str: str):
             val_id = "-1"
         # Save leech deck id: input deck name's id
         else:
-            val_id = str(mw.col.decks.id(data[key_name]))
+            val_id = str(mw.col.decks.id(val_name))
 
         out_data[key_id_str] = val_id
 
-    # Handle default removed before Anki handles it on load and scheduling
+    # Assign an empty value to the default key if it gets removed. Otherwise, Anki will replace it with the config's
+    # default setting.
     if out_data.get("0") is None:
         out_data["0"] = "-1"
 
+    # Encoding for multiple languages/typesets
     saving_json = json.dumps(out_data, indent=4, sort_keys=True, ensure_ascii=False).encode("utf8")
     print(f"Save Formatted: \n {saving_json.decode()}")
 
     return saving_json.decode()
 
 
-# Leech card hook
+# Various hooks
 hooks.card_did_leech.append(onLeech)
-# Show config hook
 gui_hooks.deck_conf_will_show.append(loadDeckConfForm)
-# Save config hook
 gui_hooks.deck_conf_will_save_config.append(saveDeckConfForm)
-
 gui_hooks.addons_dialog_did_change_selected_addon.append(addonSelected)
 gui_hooks.addon_config_editor_will_display_json.append(loadingAddonConfJSON)
 gui_hooks.addon_config_editor_will_save_json.append(savingAddonConfJSON)
