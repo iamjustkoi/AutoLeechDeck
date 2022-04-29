@@ -1,5 +1,5 @@
 """
-MIT License: Copyright (c) 2022 justkoi <https://github.com/iamjustkoi>
+MIT License: Copyright (c) 2022 Justin (justkoi/iamjustkoi) <https://github.com/iamjustkoi>
 Full license text available in "LICENSE" file, located in the add-on's root directory.
 
 Based on the "Anki Add-On Guide" <https://addon-docs.ankiweb.net/hooks-and-filters.html#legacy-hook-handling>.
@@ -14,10 +14,6 @@ from aqt import mw, gui_hooks, deckconf
 from PyQt5 import QtWidgets
 default_key_name = "##Default"
 default_deck_value_name = "Leech"
-
-{
-    # TODO: Add feedback, support, and github links to config pages
-}
 
 
 def findDefaultLeechDeckId() -> int or None:
