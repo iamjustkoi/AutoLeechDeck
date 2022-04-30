@@ -13,9 +13,9 @@ Or by pasting these numbers into Anki (Tools -> Add-ons -> Get Add-ons...).
 
 To assign decks or make any changes you can either edit the add-on's config file or go to a deck's legacy options window (Shift-clicking on "Options") and assigning a deck there.  
 
-The options menu input uses the same formatting as assigning the deck in the config, except without any quotes or brackets (e.g. "Assigned Deck, Parent::Child, etc.")
+The options menu input uses the same formatting as assigning the deck in the config, except without any quotes/brackets (e.g. things like "Leech Deck", "Parent::Child", etc.)
 
-Also, the decks get saved using ID's instead of their names, so renaming or moving them shouldn't break of these settings.
+Also, quick note, the decks get saved using their ID's instead of their names, so renaming or moving them shouldn't break any assignments.
 
 ### Assigning a Leech Deck
 #### Use the pattern {"Deck": "Sub-Deck"} (JSON Format):
@@ -25,10 +25,10 @@ Also, the decks get saved using ID's instead of their names, so renaming or movi
     "Another Deck": "Another Leech Deck",
 }
 ```
-##### Can add as many assignments as needed and also have multiple decks assigned to the same leech deck.
+##### It's possible to add as many leech decks as you might want, and multiple decks can be assigned  the same leech deck too.
 
 ### Using Sub-Decks
-#### Insert two colons between the parent deck and its sub-deck when setting its value:
+#### Insert two colons between the parent deck and its sub-deck:
 ```json
 {
     "Main Deck": "Main Deck::Sub-Deck",
@@ -37,14 +37,14 @@ Also, the decks get saved using ID's instead of their names, so renaming or movi
 ```
 
 ### Setting a Default Leech Deck
-#### Set the deck to the "##Default" key:
+#### Place the deck in the "##Default" key:
 ```json
 { "##Default": "Default Leech Deck" }
 ```
-##### This is where leeched cards get put if there's no leech deck assigned to the main deck.
+##### Cards get put into the default deck if a parent deck doesn't have a leech deck assigned to it or leech movement is disabled in some way.
 
 ### Disabling Auto-Movement for a Deck
-#### Set the leech deck to the main deck or you can make it blank:
+#### Set the leech deck to itself or you can make it a blank assignment:
 ```json
 { "Static Deck": "Static Deck" }
 ```
@@ -57,6 +57,10 @@ Also, the decks get saved using ID's instead of their names, so renaming or movi
 ```json
 { "##Default": "" }
 ```
-##### This cancels movement to the default deck for any decks that don't have a leech deck already set.  
+##### This cancels all movement by default, unless a deck gets assigned its own leech deck to move to. <br><br>
 
-Good luck, have fun!
+Best of luck, have fun!
+
+<center>Socials/Support:</center><br>
+
+<center><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="../../addons21/auto_leech_deck/raw/GitHub-Mark-Light.png"></a>&nbsp;&nbsp;<a href="https://twitter.com/iamjustkoi"><img src="../../addons21/auto_leech_deck/raw/twitter-social.png"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="../../addons21/auto_leech_deck/raw/kofilogo_blue.png"></a>&nbsp;&nbsp;<a href="https://www.patreon.com/iamjustkoi"><img src="../../addons21/auto_leech_deck/raw/patreon.png"></a></center>
