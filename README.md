@@ -5,7 +5,7 @@ Supports Anki 2.1+.
 ## Installation
 Can be installed from the add-on page on [Ankiweb](https://ankiweb.net).  
 
-> 1122334 (I Am Just A Placeholder)
+> 1464569547
 
 Or by pasting these numbers into Anki (Tools -> Add-ons -> Get Add-ons...).
 
