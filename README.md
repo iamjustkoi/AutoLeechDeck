@@ -4,10 +4,9 @@ Supports Anki 2.1+.
 
 ## Installation
 Can be installed from the add-on page on [Ankiweb](https://ankiweb.net).  
+Or by pasting these numbers into Anki (Tools -> Add-ons -> Get Add-ons...):  
 
 > 1464569547
-
-Or by pasting these numbers into Anki (Tools -> Add-ons -> Get Add-ons...).
 
 ## How To Use
 
