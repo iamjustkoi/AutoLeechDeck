@@ -61,6 +61,6 @@ Also, quick note, the decks get saved using their ID's instead of their names, s
 
 Best of luck, have fun!
 
-<center>Socials/Support:</center><br>
+<div align="center">Socials/Support:</div><br>
 
-<center><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="../../addons21/auto_leech_deck/raw/GitHub-Mark-Light.png"></a>&nbsp;&nbsp;<a href="https://twitter.com/iamjustkoi"><img src="../../addons21/auto_leech_deck/raw/twitter-social.png"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="../../addons21/auto_leech_deck/raw/kofilogo_blue.png"></a>&nbsp;&nbsp;<a href="https://www.patreon.com/iamjustkoi"><img src="../../addons21/auto_leech_deck/raw/patreon.png"></a></center>
+<div align="center"><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="https://i.imgur.com/O9GP8el.png"></a>&nbsp;&nbsp;<a href="https://twitter.com/home"><img src="https://i.imgur.com/EcvLG65.png"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="https://i.imgur.com/9LyzzhD.png"></a>&nbsp;&nbsp;<a href="https://i.imgur.com/EUX61X3.png"><img src="https://i.imgur.com/0iuIV8b.png"></a></div>
