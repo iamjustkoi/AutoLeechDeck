@@ -62,4 +62,4 @@ Best of luck, have fun!
 
 <div align="center">Socials/Support:</div><br>
 
-<div align="center"><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="https://i.imgur.com/O9GP8el.png"></a>&nbsp;&nbsp;<a href="https://twitter.com/home"><img src="https://i.imgur.com/EcvLG65.png"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="https://i.imgur.com/9LyzzhD.png"></a>&nbsp;&nbsp;<a href="https://i.imgur.com/EUX61X3.png"><img src="https://i.imgur.com/0iuIV8b.png"></a></div>
+<div align="center"><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="https://i.imgur.com/O9GP8el.png"></a>&nbsp;&nbsp;<a href="https://twitter.com/home"><img src="https://i.imgur.com/EcvLG65.png"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="https://i.imgur.com/9LyzzhD.png"></a>&nbsp;&nbsp;<a href="https://www.patreon.com/user/posts"><img src="https://i.imgur.com/0iuIV8b.png"></a></div>
