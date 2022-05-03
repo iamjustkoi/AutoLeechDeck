@@ -21,7 +21,7 @@ Also, quick note, the decks get saved using their ID's instead of their names, s
 ```json
 {
     "Deck": "Leech Deck",
-    "Another Deck": "Another Leech Deck",
+    "Another Deck": "Another Leech Deck"
 }
 ```
 ##### It's possible to add as many leech decks as you might want, and multiple decks can be assigned  the same leech deck too.
@@ -62,4 +62,4 @@ Best of luck, have fun!
 
 <div align="center">Socials/Support:</div><br>
 
-<div align="center"><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="https://i.imgur.com/O9GP8el.png"></a>&nbsp;&nbsp;<a href="https://twitter.com/home"><img src="https://i.imgur.com/EcvLG65.png"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="https://i.imgur.com/9LyzzhD.png"></a>&nbsp;&nbsp;<a href="https://www.patreon.com/iamjustkoi"><img src="https://i.imgur.com/0iuIV8b.png"></a></div>
+<div align="center"><a href="https://github.com/iamjustkoi/AutoLeechDeck"><img src="https://github.com/iamjustkoi/AutoLeechDeck/blob/master/raw/GitHub-Mark-Light.png?raw=true"></a>&nbsp;&nbsp;<a href="https://twitter.com/home"><img src="https://github.com/iamjustkoi/AutoLeechDeck/blob/master/raw/twitter-social.png?raw=true"></a>&nbsp;&nbsp;<a href="https://ko-fi.com/iamjustkoi"><img src="https://github.com/iamjustkoi/AutoLeechDeck/blob/master/raw/kofilogo_blue.PNG?raw=true"></a>&nbsp;&nbsp;<a href="https://www.patreon.com/iamjustkoi"><img src="https://github.com/iamjustkoi/AutoLeechDeck/blob/master/raw/patreon.png?raw=true"></a></div>
