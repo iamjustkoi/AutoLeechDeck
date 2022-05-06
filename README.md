@@ -3,7 +3,7 @@ Add-on for Anki that automatically moves cards to user-assigned decks as soon as
 Supports Anki 2.1+.  
 
 ## Installation
-Can be installed from the add-on page on [Ankiweb](https://ankiweb.net).  
+Can be installed from the add-on page on [Ankiweb](https://ankiweb.net/shared/info/1464569547).  
 Or by pasting these numbers into Anki (Tools -> Add-ons -> Get Add-ons...):  
 
 > 1464569547
