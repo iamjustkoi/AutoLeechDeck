@@ -4,17 +4,17 @@ Supports Anki 2.1+.
 
 ## Installation
 Can be installed from the add-on page on [Ankiweb](https://ankiweb.net/shared/info/1464569547).  
-Or by pasting these numbers into Anki (Tools -> Add-ons -> Get Add-ons...):  
+Or going to (Tools -> Add-ons -> Get Add-ons...) and entering the following code:  
 
 > 1464569547
 
 ## How To Use
 
-To assign decks or make any changes you can either edit the add-on's config file or go to a deck's legacy options window (Shift-clicking on "Options") and assigning a deck there.  
+To assign decks or make any changes you can either edit the add-on's config file or go to a deck's legacy options window (Shift-clicking on "Options") and assign its leech deck there (doesn't apply to the deck options group).  
 
-The options menu input uses the same formatting as assigning the deck in the config, except without any quotes/brackets (e.g. things like "Leech Deck", "Parent::Child", etc.)
+The options menu input uses the same formatting as assigning the deck in the config, except without any quotes/brackets (e.g. things like "Leech Deck", "Parent::Child", etc.).
 
-Also, quick note, the decks get saved using their ID's instead of their names, so renaming or moving them shouldn't break any assignments.
+Quick note: decks can be renamed/moved after assigning them. It shouldn't cause any issues for the add-on.
 
 ### Assigning a Leech Deck
 #### Use the pattern {"Deck": "Sub-Deck"} (JSON Format):
@@ -58,7 +58,7 @@ Also, quick note, the decks get saved using their ID's instead of their names, s
 ```
 ##### This cancels all movement by default, unless a deck gets assigned its own leech deck to move to. <br><br>
 
-Best of luck, have fun!
+Best of luck!
 
 <div align="center">Socials/Support:</div><br>
 
